@@ -4,17 +4,18 @@
 
     fn main()
     {
-        let mut experienced = String::new();
         let mut input1 = String::new();
+        let mut input2 = String::new();
 
-       println!("Are you experienced? (yes/no)");
-       io::stdin().read_line(&mut experienced).expect("Not a valid string");
+       println!("Are you experienced? ");
+       io::stdin().read_line(&mut input1).expect("Not a valid string");
+       let experienced:String= input1.trim().parse().expect("Not a valid string");
 
        println!("Enter your age: ");
-       io::stdin().read_line(&mut input1).expect("Not a valid string");
-       let age:i64 = input1.trim().parse().expect("Not a valid number");
+       io::stdin().read_line(&mut input2).expect("Not a valid string");
+       let age:i64 = input2.trim().parse().expect("Not a valid number");
 
-       if experienced.trim() == "yes"
+       if experienced == "yes"
        {
        if age >= 40 {
            println!("Annual incentives is N1_560_000");
@@ -26,7 +27,7 @@
            println!("Annual incentives is N1_300_000");
        }
        }
-       else
+       else if experienced == "no"
        {
            println!("Annual incentives is N100_000");
        }
