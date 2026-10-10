@@ -1,106 +1,122 @@
-    use std::io;
+        use std::io;
 
-const PI: f64 = std::f64::consts::PI;
-
-// Read a number from the user
-fn read_number(message: &str) -> f64 {
-    loop {
-        println!("{}", message);
-
+    fn trapezium() ->f64 {
         let mut input = String::new();
+        println!("Enter height");
+        io::stdin().read_line(&mut input).expect("Invalid number");
+        let height:f64 = input.trim().parse().expect("Failed to read a valid input");
 
-        io::stdin()
-            .read_line(&mut input)
-            .expect("Failed to read input");
+        let mut input1 = String::new();
+        println!("Enter base1");
+        io::stdin().read_line(&mut input1).expect("Invalid input");
+        let base1:f64 = input1.trim().parse().expect("Failed to read input");
 
-        match input.trim().parse::<f64>() {
-            Ok(number) if number.is_finite() && number >= 0.0 => {
-                return number;
-            }
-            _ => {
-                println!("Please enter a valid non-negative number.");
-            }
-        }
+        let mut input2 = String::new();
+        println!("Enter base2");
+        io::stdin().read_line(&mut input2).expect("Invalid input");
+        let base2:f64 = input2.trim().parse().expect("Failed to read input");
+
+        let area:f64 = height / 2.0 * (base1 + base2);
+        return area;
+    } 
+
+    fn rhombus() ->f64 {
+        let mut input = String::new();
+        println!("Enter first diagonal");
+        io::stdin().read_line(&mut input).expect("Invalid input");
+        let diagonal1:f64 = input.trim().parse().expect("Failed to read input");
+
+        let mut input1 = String::new();
+        println!("Enter second diagonal");
+        io::stdin().read_line(&mut input1).expect("Invalid input");
+        let diagonal2:f64 = input1.trim().parse().expect("Failed to read input");
+
+        let area:f64 = 0.5 * diagonal1 * diagonal2;
+        return area;
     }
-}
 
-// Calculate the area of a trapezium
-fn trapezium_area() -> f64 {
-    let height = read_number("Enter height:");
-    let base1 = read_number("Enter first base:");
-    let base2 = read_number("Enter second base:");
+    fn parallelogram() ->f64 {
+        let mut input = String::new();
+        println!("Enter base");
+        io::stdin().read_line(&mut input).expect("Invalid input");
+        let base:f64 = input.trim().parse().expect("Failed to read input");
 
-    height / 2.0 * (base1 + base2)
-}
+        let mut input1 = String::new();
+        println!("Enter altitude");
+        io::stdin().read_line(&mut input1).expect("Invalid input");
+        let altitude:f64 = input1.trim().parse().expect("Failed to read input");
 
-// Calculate the area of a rhombus
-fn rhombus_area() -> f64 {
-    let diagonal1 = read_number("Enter first diagonal:");
-    let diagonal2 = read_number("Enter second diagonal:");
+        let area:f64 = base * altitude;
+        return area;
+    }
 
-    0.5 * diagonal1 * diagonal2
-}
+    fn cube() ->f64 {
+        let mut input = String::new();
+        println!("Enter side");
+        io::stdin().read_line(&mut input).expect("Invalid input");
+        let side:f64 = input.trim().parse().expect("Failed to read input");
 
-// Calculate the area of a parallelogram
-fn parallelogram_area() -> f64 {
-    let base = read_number("Enter base:");
-    let altitude = read_number("Enter altitude:");
+        let surface_area:f64 = 6.0 * side * side;
+        return surface_area;
+    }
 
-    base * altitude
-}
+    fn cylinder() ->f64 {
+        let mut input = String::new();
+        println!("Enter radius");
+        io::stdin().read_line(&mut input).expect("Invalid input");
+        let radius:f64 = input.trim().parse().expect("Failed to read input");
+        
+        let mut input1 = String::new();
+        println!("Enter height");
+        io::stdin().read_line(&mut input1).expect("Invalid input");
+        let height:f64 = input1.trim().parse().expect("Failed to read input");
 
-// Calculate the surface area of a cube
-fn cube_surface_area() -> f64 {
-    let side = read_number("Enter side length:");
+        let volume:f64 = (22.0 / 7.0) * radius * radius * height;
+        return volume;
+    }
 
-    6.0 * side * side
-}
+    fn main() {
+       println!("SHAPE CALCULATOR");
+       println!("1 - Trapezium");
+       println!("2 - Rhombus");
+       println!("3 - Parallelogram");
+       println!("4 - Cube");
+       println!("5 - Cylinder");
 
-// Calculate the volume of a cylinder
-fn cylinder_volume() -> f64 {
-    let radius = read_number("Enter radius:");
-    let height = read_number("Enter height:");
+       println!("Enter your choice:");
+       let mut input = String::new();
+       io::stdin().read_line(&mut input).expect("Invalid input");
+       let choice:i32 = input.trim().parse().expect("Failed to read input");
+       
+       if choice == 1 {
+        println!("Area of trapezium: {:?}", trapezium());
+       }
 
-    PI * radius * radius * height
-}
+       else if choice == 2 {
+        println!("Area of Rhombus: {:?}", rhombus());
+       } 
 
-fn main() {
-    println!("===== SHAPE CALCULATOR =====");
-    println!("1. Trapezium Area");
-    println!("2. Rhombus Area");
-    println!("3. Parallelogram Area");
-    println!("4. Cube Surface Area");
-    println!("5. Cylinder Volume");
+       else if choice == 3 {
+        println!("Area of parallelogram: {:?}", parallelogram());
+       }
 
-    let choice = read_number("Enter your choice (1-5):");
+       else if choice == 4 {
+        println!("Area of cube: {:?}", cube());
+       }
 
-    let result = match choice {
-        1.0 => {
-            println!("You selected Trapezium Area.");
-            trapezium_area()
-        }
-        2.0 => {
-            println!("You selected Rhombus Area.");
-            rhombus_area()
-        }
-        3.0 => {
-            println!("You selected Parallelogram Area.");
-            parallelogram_area()
-        }
-        4.0 => {
-            println!("You selected Cube Surface Area.");
-            cube_surface_area()
-        }
-        5.0 => {
-            println!("You selected Cylinder Volume.");
-            cylinder_volume()
-        }
-        _ => {
-            println!("Invalid choice. Please choose a number from 1 to 5.");
-            return;
-        }
-    };
+       else if choice == 5 {
+        println!("Area of cylinder: {:?}", cylinder());
+       }
+       else {
+        println!("Not a valid input");
+       } 
+       
+    }
+        
 
-    println!("The answer is: {:.2}", result);
-}
+        
+    
+
+
+
 
