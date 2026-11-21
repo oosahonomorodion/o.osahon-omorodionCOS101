@@ -1,4 +1,3 @@
-Welcome to Rust Programming language.
-Type in your code.
+
 Hello Class
 This is the appendage to the document.
